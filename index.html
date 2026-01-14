@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>404 | SYSTEM BREACH</title>
+<style>
+/* ====== GLOBAL ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top, #0f2027, #000);
+  color: #00fff7;
+  overflow: hidden;
+}
+
+/* ====== SCANLINES ====== */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,255,0.05),
+    rgba(0,255,255,0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  animation: scan 6s linear infinite;
+}
+
+@keyframes scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100%; }
+}
+
+/* ====== CENTER BOX ====== */
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  text-align: center;
+  padding: 40px 60px;
+  border: 2px solid #00fff7;
+  box-shadow: 0 0 20px #00fff7, inset 0 0 20px #00fff7;
+  background: rgba(0,0,0,0.6);
+}
+
+/* ====== GLITCH TEXT ====== */
+.glitch {
+  font-size: 100px;
+  position: relative;
+  color: #00fff7;
+  animation: flicker 2s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.glitch::before {
+  top: -2px;
+  color: #ff005a;
+  animation: glitch1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  top: 2px;
+  color: #00ff9c;
+  animation: glitch2 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch1 {
+  0% { clip-path: inset(0 0 80% 0); }
+  50% { clip-path: inset(30% 0 20% 0); }
+  100% { clip-path: inset(70% 0 0 0); }
+}
+
+@keyframes glitch2 {
+  0% { clip-path: inset(80% 0 0 0); }
+  50% { clip-path: inset(20% 0 40% 0); }
+  100% { clip-path: inset(0 0 70% 0); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* ====== TEXT ====== */
+.subtitle {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #7fffd4;
+}
+
+.terminal {
+  margin-top: 30px;
+  font-size: 14px;
+  text-align: left;
+  color: #00ff9c;
+}
+
+/* ====== BUTTON ====== */
+button {
+  margin-top: 25px;
+  padding: 10px 25px;
+  background: transparent;
+  color: #00fff7;
+  border: 1px solid #00fff7;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00fff7;
+  color: #000;
+  box-shadow: 0 0 15px #00fff7;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="panel">
+    <div class="glitch" data-text="404">404</div>
+    <div class="subtitle">ACCESS DENIED : FILE NOT FOUND</div>
+
+    <div class="terminal" id="terminal"></div>
+
+    <button onclick="goHome()">RETURN TO BASE</button>
+  </div>
+</div>
+
+<script>
+/* ====== TERMINAL TYPING EFFECT ====== */
+const lines = [
+  "> Initializing breach protocol...",
+  "> Bypassing firewall...",
+  "> Accessing node 127.0.0.1",
+  "> ERROR: Target resource not found.",
+  "> System halted."
+];
+
+let i = 0;
+let terminal = document.getElementById("terminal");
+
+function typeLine() {
+  if (i < lines.length) {
+    terminal.innerHTML += lines[i] + "<br>";
+    i++;
+    setTimeout(typeLine, 700);
+  }
+}
+
+typeLine();
+
+/* ====== BUTTON ACTION ====== */
+function goHome() {
+  window.location.href = "/";
+}
+</script>
+
+</body>
+</html>
